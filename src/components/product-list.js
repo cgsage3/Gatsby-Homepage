@@ -13,6 +13,8 @@ import {
   LinkList,
 } from "./ui"
 
+import {productList} from './product-list.module.css'
+
 function Product(props) {
   return (
     <Box center>
@@ -41,7 +43,7 @@ export default function ProductList(props) {
           </Heading>
           {props.text && <Text>{props.text}</Text>}
         </Box>
-        <FlexList gap={4} variant="responsive">
+        <FlexList className={productList} gap={4} variant="responsive">
           {props.content.map((product) => (
             <li key={product.id}>
               <Product {...product} />
