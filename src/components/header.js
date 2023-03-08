@@ -19,6 +19,7 @@ import {
   mobileNavSVGColorWrapper,
 } from "./header.css"
 import BrandLogo from "./brand-logo"
+import Menus from "./mainMenu"
 
 const data = {
   navItems: [
@@ -75,13 +76,8 @@ export default function Header() {
             <BrandLogo />
           </NavLink>
           <nav>
-            <FlexList gap={4}>
-              {navItems &&
-                navItems.map((navItem) => (
-                  <li key={navItem.id}>
-                    <NavLink to={navItem.href}>{navItem.text}</NavLink>
-                  </li>
-                ))}
+            <FlexList gap={4}> 
+              <Menus/>
             </FlexList>
           </nav>
           <div>{cta && <Button to={cta.href}>{cta.text}</Button>}</div>
@@ -127,13 +123,7 @@ export default function Header() {
         <div className={mobileNavOverlay}>
           <nav>
             <FlexList responsive variant="stretch">
-              {navItems?.map((navItem) => (
-                <li key={navItem.id}>
-                  <NavLink to={navItem.href} className={mobileNavLink}>
-                    {navItem.text}
-                  </NavLink>
-                </li>
-              ))}
+              <Menus className={mobileNavLink}/>
             </FlexList>
           </nav>
         </div>
