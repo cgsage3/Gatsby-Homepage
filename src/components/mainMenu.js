@@ -14,22 +14,18 @@ const MENU_QUERY = graphql`
 
 
     query GETMAINMENU {
-      allWpMenu {
-        edges {
-          node {
-            slug
-            menuItems {
-              nodes {
-                id
-                label
-                url
-                title
-                target
-              }
-            }
+      wpMenu(locations: {eq: PRIMARY}) {
+        name
+        id
+        menuItems {
+          nodes {
+            id
+            title
+            url
+            label
           }
         }
-      }
+      }      
       wp {
         generalSettings {
           url
@@ -43,11 +39,11 @@ const Menus = ({className}) => {
     <StaticQuery
       query={MENU_QUERY}
       render={(data) => {
+// console.log(data)
         
-        if (data.allWpMenu) {
-          const menuItems = data.allWpMenu.edges[0].node.menuItems.nodes
+        if (data.wpMenu) {
+          const menuItems = data.wpMenu.menuItems.nodes
           const wordPressUrl = data.wp.generalSettings.url
-// console.log(menuItems)
           return (
                 menuItems &&
                 menuItems.map((menuItem) => (
