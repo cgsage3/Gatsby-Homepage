@@ -1,4 +1,5 @@
 const { getGatsbyImageResolver } = require("gatsby-plugin-image/graphql-utils")
+const path = require(`path`)
 
 exports.createSchemaCustomization = async ({ actions }) => {
   actions.createFieldExtension({
@@ -535,7 +536,8 @@ exports.onCreateNode = ({
   }
 }
 
-exports.createPages = ({ actions }) => {
+// Create blog pages dynamically
+exports.createPages = async ({ graphql, actions }) => {
   const { createSlice } = actions
   createSlice({
     id: "header",
@@ -545,5 +547,44 @@ exports.createPages = ({ actions }) => {
     id: "footer",
     component: require.resolve("./src/components/footer.js"),
   })
+
+  const { createPage } = actions
+  const blogPostTemplate = path.resolve(`src/templates/blogPost.js`)
+  const result = await graphql(`
+    query {
+      allWpPost(sort: {date: DESC}) {
+        edges {
+          previous {
+            id
+          }
+
+          # note: this is a GraphQL alias. It renames "node" to "post" for this query
+          # We're doing this because this "node" is a post! It makes our code more readable further down the line.
+          post: node {
+            id
+            uri
+            postFormats {
+              formats: nodes {
+                name
+              }
+            }
+          }
+
+          next {
+            id
+          }
+        }
+      }
+    }
+  `)
+  if (result.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading your blog pages`,
+      result.errors
+    )
+    return
+  }
+
+  return result.data.allWpPost.edges
 }
       
