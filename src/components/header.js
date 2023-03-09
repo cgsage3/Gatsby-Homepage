@@ -22,6 +22,32 @@ import BrandLogo from "./brand-logo"
 import Menus from "./mainMenu"
 
 const data = {
+  navItems: [
+    {
+      id: 0,
+      navItemType: "Link",
+      href: "#!",
+      text: "Products",
+    },
+    {
+      id: 1,
+      navItemType: "Link",
+      href: "#!",
+      text: "Pricing",
+    },
+    {
+      id: 2,
+      navItemType: "Link",
+      href: "#!",
+      text: "About",
+    },
+    {
+      id: 3,
+      navItemType: "Link",
+      href: "#!",
+      text: "Blog",
+    },
+  ],
   cta: {
     href: "#!",
     text: "Sign Up",
@@ -29,7 +55,7 @@ const data = {
 }
 
 export default function Header() {
-  const { cta } = data
+  const { navItems, cta } = data
   const [isOpen, setOpen] = React.useState(false)
 
   React.useEffect(() => {

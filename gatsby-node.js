@@ -1,5 +1,4 @@
 const { getGatsbyImageResolver } = require("gatsby-plugin-image/graphql-utils")
-const path = require(`path`)
 
 exports.createSchemaCustomization = async ({ actions }) => {
   actions.createFieldExtension({
@@ -536,8 +535,7 @@ exports.onCreateNode = ({
   }
 }
 
-// Create blog pages dynamically
-exports.createPages = async ({ graphql, actions }) => {
+exports.createPages = ({ actions }) => {
   const { createSlice } = actions
   createSlice({
     id: "header",
