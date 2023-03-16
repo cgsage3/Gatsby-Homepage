@@ -7,6 +7,8 @@ import SEOHead from "../components/head"
 export default function Page(props) {
   const { page } = props.data
 
+    console.log(page)
+
   return (
     <Layout>
       <Box paddingY={5}>

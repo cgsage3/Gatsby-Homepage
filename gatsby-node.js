@@ -250,6 +250,14 @@ exports.createSchemaCustomization = async ({ actions }) => {
       description: String
       image: HomepageImage @link
       html: String
+    }    
+
+    type Post implements Node {
+      id: ID!
+      slug: String!
+      title: String
+      image: HomepageImage @link
+      html: String
     }
   `)
 
@@ -527,6 +535,27 @@ exports.onCreateNode = ({
           slug: node.slug,
           title: node.title,
           description: node.page?.description,
+          image: node.featuredImage?.node?.id,
+          html: node.content,
+        })
+        break
+    }
+  }  
+
+  if (node.internal.type === "WpPost") {
+    switch (node.slug) {
+      default:
+        actions.createNode({
+          ...node.post,
+          id: createNodeId(`${node.id} >>> Post ${node.slug}`),
+          internal: {
+            type: "Post",
+            contentDigest: node.internal.contentDigest,
+          },
+          parent: node.id,
+          alt: node.alt,
+          slug: node.slug,
+          title: node.title,
           image: node.featuredImage?.node?.id,
           html: node.content,
         })
