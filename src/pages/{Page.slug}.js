@@ -1,5 +1,6 @@
 import * as React from "react"
 import { graphql } from "gatsby"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import { Container, Box, Heading } from "../components/ui"
 import SEOHead from "../components/head"
@@ -14,6 +15,13 @@ export default function Page(props) {
       <Box paddingY={5}>
         <Container width="narrow">
           <Heading as="h1">{page.title}</Heading>
+          {page.image && (
+            <GatsbyImage
+              alt={page.image.alt}
+              image={getImage(page.image.gatsbyImageData)}
+              
+            />
+          )}            
           <div
             dangerouslySetInnerHTML={{
               __html: page.html,
@@ -38,6 +46,8 @@ export const query = graphql`
       image {
         id
         url
+        alt
+        gatsbyImageData        
       }
       html
     }

@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import { Container, Box, Heading } from "../components/ui"
 import SEOHead from "../components/head"
 
+
 export default function Post(props) {
   const { post } = props.data
 

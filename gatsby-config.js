@@ -15,9 +15,10 @@ module.exports = {
     {
       resolve: "gatsby-source-wordpress",
       options: {
-        url: 'http://104.248.249.56/graphql',
-      },
+        url: 'http://104.248.249.56/graphql',      
+      },      
     },
+
     "gatsby-plugin-sharp",
     "gatsby-plugin-image",
     "gatsby-transformer-sharp",
@@ -33,6 +34,6 @@ module.exports = {
         theme_color: "#004ca3",
         icon: "src/favicon.png",
       },
-    },
+    },      
   ],
 }
